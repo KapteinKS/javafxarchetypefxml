@@ -146,5 +146,39 @@ public class PrimaryController {
 
         }
     }
-}
+    private void addElemBtnClicked() {
+        DataModel obj = createDataModelObjectFromGUI();
 
+        if(obj != null) {
+            resetTxtFields();
+            collection.addElement(obj);
+        }
+    }
+
+    private DataModel createDataModelObjectFromGUI() {
+        String navn = lblNavn.getText();
+        String ePost = txtEPost.getText();
+        String tlf = txtTelefon.getText();
+
+        try {
+            int alder = Integer.parseInt(lblAlder.getText());
+            int dag = Integer.parseInt(lblDD.getText());
+            int måned = Integer.parseInt(lblMM.getText());
+            int år = Integer.parseInt(lblYYYY.getText());
+            return new DataModel(navn, alder, dag, måned, år, tlf, ePost);
+        } catch (IllegalArgumentException e) {
+            lblAlder.setText("<< Input here must be a positive number! >>");
+            return null;
+        }
+    }
+
+    private void resetTxtFields() {
+        lblAlder.setText("");
+        lblNavn.setText("");
+        lblDD.setText("");
+        lblMM.setText("");
+        lblYYYY.setText("");
+        txtEPost.setText("");
+        txtTelefon.setText("");
+    }
+}
