@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -21,29 +23,25 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="642.0" prefWidth="480.0" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="634.0" prefWidth="844.0" GridPane.rowIndex="1">
          <children>
-            <Label layoutX="161.0" layoutY="45.0" prefHeight="35.0" prefWidth="170.0" text="Personregister" textAlignment="CENTER">
+            <Label layoutX="351.0" layoutY="40.0" prefHeight="35.0" prefWidth="170.0" text="Personregister" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="lblNavn" layoutX="100.0" layoutY="98.0" prefHeight="31.0" prefWidth="292.0" promptText="Ola Nordmann" />
-            <TextField fx:id="lblAlder" layoutX="100.0" layoutY="144.0" prefHeight="31.0" prefWidth="292.0" promptText="Alder" />
-            <TextField fx:id="lblDD" layoutX="100.0" layoutY="190.0" prefHeight="31.0" prefWidth="82.0" promptText="DD" />
-            <TextField fx:id="lblMM" layoutX="205.0" layoutY="190.0" prefHeight="31.0" prefWidth="82.0" promptText="MM" />
-            <TextField fx:id="lblYYYY" layoutX="310.0" layoutY="190.0" prefHeight="31.0" prefWidth="82.0" promptText="YYYY" />
-            <Label layoutX="33.0" layoutY="103.0" text="Navn" />
-            <Label layoutX="33.0" layoutY="149.0" text="Alder" />
-            <Label layoutX="13.0" layoutY="195.0" text="Fødselsdag" />
-            <TextField fx:id="txtEPost" layoutX="100.0" layoutY="237.0" prefHeight="31.0" prefWidth="292.0" promptText="noen@example.com" />
-            <TextField fx:id="txtTelefon" layoutX="100.0" layoutY="287.0" prefHeight="31.0" prefWidth="292.0" />
-            <Label layoutX="29.0" layoutY="242.0" text="e-post" />
-            <Label layoutX="19.0" layoutY="292.0" text="Telefonnr" />
+            <TextField fx:id="lblNavn" layoutX="142.0" layoutY="115.0" prefHeight="31.0" prefWidth="292.0" promptText="Navn" />
+            <TextField fx:id="lblAlder" layoutX="441.0" layoutY="115.0" prefHeight="31.0" prefWidth="63.0" promptText="Alder" />
+            <TextField fx:id="lblDD" layoutX="514.0" layoutY="115.0" prefHeight="31.0" prefWidth="55.0" promptText="DD" />
+            <TextField fx:id="lblMM" layoutX="569.0" layoutY="115.0" prefHeight="31.0" prefWidth="55.0" promptText="MM" />
+            <TextField fx:id="lblYYYY" layoutX="624.0" layoutY="115.0" prefHeight="31.0" prefWidth="82.0" promptText="YYYY" />
+            <Label layoutX="142.0" layoutY="96.0" text="Navn" />
+            <Label layoutX="514.0" layoutY="96.0" text="Fødselsdag" />
+            <TextField fx:id="txtTelefon" layoutX="144.0" layoutY="198.0" prefHeight="31.0" prefWidth="292.0" promptText="Telefonnummer" />
+            <TextField fx:id="txtEPost" layoutX="446.0" layoutY="198.0" prefHeight="31.0" prefWidth="262.0" promptText="e-post" />
             <Label fx:id="warninglbl" alignment="CENTER" layoutX="22.0" layoutY="371.0" prefHeight="21.0" prefWidth="437.0" />
-            <Label fx:id="txtRegister" alignment="TOP_CENTER" layoutX="25.0" layoutY="405.0" prefHeight="224.0" prefWidth="437.0" />
-            <Button fx:id="btnRegistrer" layoutX="101.0" layoutY="333.0" mnemonicParsing="false" onAction="#regPers" text="Registrer" />
-            <Button fx:id="btsVisReg" layoutX="286.0" layoutY="333.0" mnemonicParsing="false" onAction="#visReg" text="Se register" />
+            <Label fx:id="txtRegister" alignment="TOP_CENTER" layoutX="25.0" layoutY="33.0" prefHeight="104.0" prefWidth="43.0" />
+            <Button fx:id="btnRegistrer" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#regPers" text="Registrer" />
             <MenuBar fx:id="fileMenu" layoutX="-1.0" layoutY="-9.0">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
@@ -55,6 +53,18 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <TableView layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
+              <columns>
+                <TableColumn fx:id="colNavn" prefWidth="235.0" text="Navn" />
+                <TableColumn fx:id="colAlder" prefWidth="52.0" text="Alder" />
+                  <TableColumn fx:id="colFødselsdag" prefWidth="123.0" text="Fødselsdag" />
+                  <TableColumn fx:id="colTlf" prefWidth="141.0" text="Telefon" />
+                  <TableColumn fx:id="colMail" prefWidth="290.0" text="E-post" />
+              </columns>
+            </TableView>
+            <Label layoutX="144.0" layoutY="177.0" text="Telefon" />
+            <Label layoutX="441.0" layoutY="96.0" text="Alder" />
+            <Label layoutX="446.0" layoutY="177.0" text="E-post" />
          </children>
       </AnchorPane>
    </children>

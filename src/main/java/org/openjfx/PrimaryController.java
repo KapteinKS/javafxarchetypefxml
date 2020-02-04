@@ -2,9 +2,13 @@ package org.openjfx;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.ResourceBundle;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.MenuItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +22,7 @@ public class PrimaryController {
     FileChooser fileChooser = new FileChooser();
     Stage mainStage = new Stage();
     File selectedFile;
+    DataCollection collection = new DataCollection();
     @FXML
     private Button btsVisReg;
 
@@ -64,6 +69,29 @@ public class PrimaryController {
     private MenuItem lagreFilSom;
 
     @FXML
+    private TableView<?> tableView;
+
+    @FXML
+    private TableColumn<?, ?> colNavn;
+
+    @FXML
+    private TableColumn<?, ?> colAlder;
+
+    @FXML
+    private TableColumn<?, ?> colFødselsdag;
+
+    @FXML
+    private TableColumn<?, ?> colTlf;
+
+    @FXML
+    private TableColumn<?, ?> colMail;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        collection.attachTableView(tableView);
+    }
+
+    @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
@@ -89,6 +117,7 @@ public class PrimaryController {
                 register.leggTil(p);
             }
             warninglbl.setText("Person(er) lagt inn fra fil");
+            txtRegister.setText(register.skrivUtListe());
         }
     }
 
@@ -111,14 +140,11 @@ public class PrimaryController {
     @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
-                warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
-                        lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
-        }
-    }
+            warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
+                    lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
+            txtRegister.setText(register.skrivUtListe());
 
-    @FXML
-    void visReg(ActionEvent event) {
-        txtRegister.setText(register.skrivUtListe());
+        }
     }
 }
 
