@@ -69,7 +69,7 @@
                 </TableColumn>
                   <TableColumn fx:id="colFødselsdag" prefWidth="123.0" text="Fødselsdag">
                   <cellValueFactory>
-                      <PropertyValueFactory property="dag" />
+                      <PropertyValueFactory property="fDato" />
                   </cellValueFactory>
                   </TableColumn>
                   <TableColumn fx:id="colTlf" prefWidth="141.0" text="Telefon" >

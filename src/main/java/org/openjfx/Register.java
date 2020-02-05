@@ -20,7 +20,8 @@ public class Register {
                 String ePost = avvik.sjekkEpost(innEpost);
                 String telefon = avvik.sjekkTelefon(innTelefon);
 
-                liste.add(new Person(navn, alder, dag, måned, år, ePost, telefon));
+                Person p = new Person(navn, alder, dag, måned, år, ePost, telefon);
+                liste.add(p);
             }
             catch (InvalidAgeException e){
                 return e.getMessage();

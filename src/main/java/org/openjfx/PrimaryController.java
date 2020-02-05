@@ -107,23 +107,6 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    void chooseFile(ActionEvent event) throws IOException {
-        fileChooser.setTitle("Open resource file");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        selectedFile = fileChooser.showOpenDialog(mainStage);
-        if(selectedFile != null) {
-            String path = selectedFile.getAbsolutePath();
-            Path paths = Paths.get(path);
-            List<Person> personer = FileOpenerTxt.lesFil(paths);
-            for (Person p : personer) {
-                register.leggTil(p);
-            }
-            warninglbl.setText("Person(er) lagt inn fra fil");
-            txtRegister.setText(register.skrivUtListe());
-        }
-    }
-
-    @FXML
     void saveRegistry(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
@@ -140,20 +123,36 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    void chooseFile(ActionEvent event) throws IOException {
+        fileChooser.setTitle("Open resource file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        selectedFile = fileChooser.showOpenDialog(mainStage);
+        if(selectedFile != null) {
+            String path = selectedFile.getAbsolutePath();
+            Path paths = Paths.get(path);
+            List<Person> personer = FileOpenerTxt.lesFil(paths);
+            for (Person p : personer) {
+                register.leggTil(p);
+
+            }
+            warninglbl.setText("Person(er) lagt inn fra fil");
+            txtRegister.setText(register.skrivUtListe());
+        }
+    }
+
+    @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
             warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
                     lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
             txtRegister.setText(register.skrivUtListe());
 
-        }
-    }
-    private void addElemBtnClicked() {
-        DataModel obj = createDataModelObjectFromGUI();
+            DataModel obj = createDataModelObjectFromGUI();
 
-        if(obj != null) {
-            resetTxtFields();
-            collection.addElement(obj);
+            if(obj != null) {
+                resetTxtFields();
+                collection.addElement(obj);
+            }
         }
     }
 
@@ -167,7 +166,8 @@ public class PrimaryController implements Initializable {
             int dag = Integer.parseInt(lblDD.getText());
             int måned = Integer.parseInt(lblMM.getText());
             int år = Integer.parseInt(lblYYYY.getText());
-            return new DataModel(navn, alder, dag, måned, år, tlf, ePost);
+            Dato fDato = new Dato(dag, måned, år);
+            return new DataModel(navn, alder, fDato, tlf, ePost);
         } catch (IllegalArgumentException e) {
             lblAlder.setText("<< Input here must be a positive number! >>");
             return null;
