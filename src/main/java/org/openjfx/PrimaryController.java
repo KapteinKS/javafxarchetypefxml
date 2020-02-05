@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.MenuItem;
@@ -17,12 +19,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-public class PrimaryController {
+public class PrimaryController implements Initializable {
     Register register = new Register();
     FileChooser fileChooser = new FileChooser();
     Stage mainStage = new Stage();
     File selectedFile;
-    DataCollection collection = new DataCollection();
+    private  DataCollection collection = new DataCollection();
     @FXML
     private Button btsVisReg;
 
