@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,8 +14,10 @@ import javafx.scene.control.MenuItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 
 public class PrimaryController implements Initializable {
@@ -71,23 +72,24 @@ public class PrimaryController implements Initializable {
     private TableView<?> tableView;
 
     @FXML
-    private TableColumn<?, ?> colNavn;
+    private TableColumn<DataModel, String> colNavn;
 
     @FXML
-    private TableColumn<?, ?> colAlder;
+    private TableColumn<DataModel, Integer> colAlder;
 
     @FXML
-    private TableColumn<?, ?> colFødselsdag;
+    private TableColumn<DataModel, String> colFødselsdag;
 
     @FXML
-    private TableColumn<?, ?> colTlf;
+    private TableColumn<DataModel, String> colTlf;
 
     @FXML
-    private TableColumn<?, ?> colMail;
+    private TableColumn<DataModel, String> colMail;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
+        colAlder.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     }
 
     @FXML
@@ -190,13 +192,19 @@ public class PrimaryController implements Initializable {
         txtTelefon.setText("");
     }
 
-    public void nameEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    public void nameDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
     }
 
     public void phoneDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+        event.getRowValue().setNavn(event.getNewValue());
     }
 
     public void emailDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+        event.getRowValue().setNavn(event.getNewValue());
+    }
+
+    public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
+        event.getRowValue().setAlder(event.getNewValue());
     }
 }
