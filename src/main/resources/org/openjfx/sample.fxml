@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<!--<?import javafx.scene.control.cell.TextFieldTableCell?>-->
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -53,32 +54,55 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView fx:id="tableView" layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
+
+             <!--Tabell, redigerbar-->
+            <TableView fx:id="tableView" editable="true" layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
               <columns>
-                <TableColumn fx:id="colNavn" prefWidth="235.0" text="Navn">
+                  <!-- Kolonne 1, navn, redigerbar-->
+                <TableColumn fx:id="colNavn" onEditCommit="#nameEdited" prefWidth="235.0" text="Navn">
                   <cellValueFactory>
                       <PropertyValueFactory property="navn" />
                   </cellValueFactory>
+                    <cellFactory>
+                        <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                    </cellFactory>
                 </TableColumn>
+
+                  <!--Kolonne 2, alder, redigerbar-->
                 <TableColumn fx:id="colAlder" prefWidth="52.0" text="Alder">
                   <cellValueFactory>
                       <PropertyValueFactory property="alder" />
                   </cellValueFactory>
+                    <cellFactory>
+                        <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                    </cellFactory>
                 </TableColumn>
-                  <TableColumn fx:id="colFødselsdag" prefWidth="123.0" text="Fødselsdag">
+
+                  <!--Kolonne 3, fødselsdag, ikke redigerbar-->
+                  <TableColumn fx:id="colFødselsdag" editable="false" prefWidth="123.0" text="Fødselsdag">
                   <cellValueFactory>
                       <PropertyValueFactory property="fDato" />
                   </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="colTlf" prefWidth="141.0" text="Telefon">
+
+                  <!--Kolonne 4, Telefonnummer, redigerbar-->
+                  <TableColumn fx:id="colTlf" onEditCommit="#phoneDataEdited" prefWidth="141.0" text="Telefon">
                           <cellValueFactory>
                               <PropertyValueFactory property="tlf" />
                           </cellValueFactory>
+                      <cellFactory>
+                          <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                      </cellFactory>
                   </TableColumn>
-                  <TableColumn fx:id="colMail" prefWidth="290.0" text="E-post">
+
+                  <!--Kolonne 5, e-post, redigerbar-->
+                  <TableColumn fx:id="colMail" onEditCommit="#emailDataEdited" prefWidth="290.0" text="E-post">
                       <cellValueFactory>
                           <PropertyValueFactory property="ePost" />
                       </cellValueFactory>
+                      <cellFactory>
+                          <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                      </cellFactory>
                   </TableColumn>
               </columns>
             </TableView>

@@ -189,4 +189,14 @@ public class PrimaryController implements Initializable {
         txtEPost.setText("");
         txtTelefon.setText("");
     }
+
+    public void nameEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+        event.getRowValue().setNavn(event.getNewValue());
+    }
+
+    public void phoneDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    }
+
+    public void emailDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    }
 }

@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<!--<?import javafx.scene.control.cell.TextFieldTableCell?>-->
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -31,16 +32,16 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="lblNavn" layoutX="142.0" layoutY="115.0" prefHeight="31.0" prefWidth="292.0" promptText="Navn" />
-            <TextField fx:id="lblAlder" layoutX="441.0" layoutY="115.0" prefHeight="31.0" prefWidth="63.0" promptText="Alder" />
-            <TextField fx:id="lblDD" layoutX="514.0" layoutY="115.0" prefHeight="31.0" prefWidth="55.0" promptText="DD" />
-            <TextField fx:id="lblMM" layoutX="569.0" layoutY="115.0" prefHeight="31.0" prefWidth="55.0" promptText="MM" />
-            <TextField fx:id="lblYYYY" layoutX="624.0" layoutY="115.0" prefHeight="31.0" prefWidth="82.0" promptText="YYYY" />
+            <TextField fx:id="lblNavn" layoutX="131.0" layoutY="117.0" prefHeight="31.0" prefWidth="292.0" promptText="Navn" />
+            <TextField fx:id="lblAlder" layoutX="436.0" layoutY="117.0" prefHeight="31.0" prefWidth="63.0" promptText="Alder" />
+            <TextField fx:id="lblDD" layoutX="515.0" layoutY="117.0" prefHeight="31.0" prefWidth="55.0" promptText="DD" />
+            <TextField fx:id="lblMM" layoutX="570.0" layoutY="117.0" prefHeight="31.0" prefWidth="55.0" promptText="MM" />
+            <TextField fx:id="lblYYYY" layoutX="624.0" layoutY="117.0" prefHeight="31.0" prefWidth="82.0" promptText="YYYY" />
             <Label layoutX="142.0" layoutY="96.0" text="Navn" />
-            <Label layoutX="514.0" layoutY="96.0" text="Fødselsdag" />
-            <TextField fx:id="txtTelefon" layoutX="144.0" layoutY="198.0" prefHeight="31.0" prefWidth="292.0" promptText="Telefonnummer" />
-            <TextField fx:id="txtEPost" layoutX="446.0" layoutY="198.0" prefHeight="31.0" prefWidth="262.0" promptText="e-post" />
-            <Label fx:id="warninglbl" alignment="CENTER" layoutX="366.0" layoutY="248.0" prefHeight="31.0" prefWidth="342.0" />
+            <Label layoutX="515.0" layoutY="96.0" text="Fødselsdag" />
+            <TextField fx:id="txtTelefon" layoutX="131.0" layoutY="198.0" prefHeight="31.0" prefWidth="292.0" promptText="Telefonnummer" />
+            <TextField fx:id="txtEPost" layoutX="436.0" layoutY="198.0" prefHeight="31.0" prefWidth="270.0" promptText="e-post" />
+            <Label fx:id="warninglbl" alignment="CENTER" layoutX="335.0" layoutY="250.0" prefHeight="31.0" prefWidth="373.0" />
             <Button fx:id="btnRegistrer" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#regPers" text="Registrer" />
             <MenuBar fx:id="fileMenu" layoutX="-1.0" layoutY="-9.0">
               <menus>
@@ -53,38 +54,61 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <TableView fx:id="tableView" layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
+
+             <!--Tabell, redigerbar-->
+            <TableView fx:id="tableView" editable="true" layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
               <columns>
-                <TableColumn fx:id="colNavn" prefWidth="235.0" text="Navn">
+                  <!-- Kolonne 1, navn, redigerbar-->
+                <TableColumn fx:id="colNavn" onEditCommit="#nameEdited" prefWidth="235.0" text="Navn">
                   <cellValueFactory>
                       <PropertyValueFactory property="navn" />
                   </cellValueFactory>
+                    <cellFactory>
+                        <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                    </cellFactory>
                 </TableColumn>
+
+                  <!--Kolonne 2, alder, redigerbar-->
                 <TableColumn fx:id="colAlder" prefWidth="52.0" text="Alder">
                   <cellValueFactory>
                       <PropertyValueFactory property="alder" />
                   </cellValueFactory>
+                    <cellFactory>
+                        <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                    </cellFactory>
                 </TableColumn>
-                  <TableColumn fx:id="colFødselsdag" prefWidth="123.0" text="Fødselsdag">
+
+                  <!--Kolonne 3, fødselsdag, ikke redigerbar-->
+                  <TableColumn fx:id="colFødselsdag" editable="false" prefWidth="123.0" text="Fødselsdag">
                   <cellValueFactory>
                       <PropertyValueFactory property="fDato" />
                   </cellValueFactory>
                   </TableColumn>
-                  <TableColumn fx:id="colTlf" prefWidth="141.0" text="Telefon">
+
+                  <!--Kolonne 4, Telefonnummer, redigerbar-->
+                  <TableColumn fx:id="colTlf" onEditCommit="#phoneDataEdited" prefWidth="141.0" text="Telefon">
                           <cellValueFactory>
                               <PropertyValueFactory property="tlf" />
                           </cellValueFactory>
+                      <cellFactory>
+                          <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                      </cellFactory>
                   </TableColumn>
-                  <TableColumn fx:id="colMail" prefWidth="290.0" text="E-post">
+
+                  <!--Kolonne 5, e-post, redigerbar-->
+                  <TableColumn fx:id="colMail" onEditCommit="#emailDataEdited" prefWidth="290.0" text="E-post">
                       <cellValueFactory>
                           <PropertyValueFactory property="ePost" />
                       </cellValueFactory>
+                      <cellFactory>
+                          <!--<TextFieldTableCell fx:factory="forTableColumn" />-->
+                      </cellFactory>
                   </TableColumn>
               </columns>
             </TableView>
             <Label layoutX="144.0" layoutY="177.0" text="Telefon" />
-            <Label layoutX="441.0" layoutY="96.0" text="Alder" />
-            <Label layoutX="446.0" layoutY="177.0" text="E-post" />
+            <Label layoutX="436.0" layoutY="96.0" text="Alder" />
+            <Label layoutX="436.0" layoutY="177.0" text="E-post" />
          </children>
       </AnchorPane>
    </children>
