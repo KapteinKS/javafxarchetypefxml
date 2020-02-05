@@ -10,7 +10,7 @@ public class Avvik {
     }
 
     public int dag(int innDag) throws InvalidAgeException{
-        if(innDag < 1 || innDag > 32){
+        if(innDag < 1 || innDag > 31){
             throw new InvalidDateException("Fødselsdag må være mellom 1 og 31");
         }
         return innDag;
@@ -40,7 +40,7 @@ public class Avvik {
         }
     }
     public String sjekkNavn(String navn) throws InvalidNameException{
-        if(!navn.matches("[A-ZÆØÅ][a-zæøåA-ZÆØÅ][^#&<>\"~;$^%{}?]{1,40}$")){
+        if(!navn.matches("[a-zæøåA-ZÆØÅ][^#&<>\"~;$^%{}?]{1,40}$")){
             throw new InvalidNameException("Ulovlig karakter i navn");
         } else {
             return navn;

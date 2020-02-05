@@ -56,9 +56,6 @@ public class PrimaryController implements Initializable {
     private Label warninglbl;
 
     @FXML
-    private Label txtRegister;
-
-    @FXML
     private MenuBar fileMenu;
 
     @FXML
@@ -124,7 +121,7 @@ public class PrimaryController implements Initializable {
 
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
-        fileChooser.setTitle("Open resource file");
+        fileChooser.setTitle("Velg en fil som inneholder register");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         selectedFile = fileChooser.showOpenDialog(mainStage);
         if(selectedFile != null) {
@@ -133,27 +130,37 @@ public class PrimaryController implements Initializable {
             List<Person> personer = FileOpenerTxt.lesFil(paths);
             for (Person p : personer) {
                 register.leggTil(p);
-
+                DataModel dm = createDMfromPerson(p);
+                collection.addElement(dm);
             }
             warninglbl.setText("Person(er) lagt inn fra fil");
-            txtRegister.setText(register.skrivUtListe());
         }
     }
 
     @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
-            warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
-                    lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
-            txtRegister.setText(register.skrivUtListe());
+                warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
+                        lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
 
-            DataModel obj = createDataModelObjectFromGUI();
+                DataModel obj = createDataModelObjectFromGUI();
 
-            if(obj != null) {
-                resetTxtFields();
-                collection.addElement(obj);
-            }
+                if(warninglbl.getText().equals("")){
+                    if (obj != null) {
+                        resetTxtFields();
+                        collection.addElement(obj);
+                    }
+                }
         }
+    }
+
+    private DataModel createDMfromPerson(Person p){
+        String navn = p.getNavn();
+        int alder = p.getAlder();
+        Dato fDato = p.getfDato();
+        String tlf = p.getTelefon();
+        String epost = p.getePost();
+        return new DataModel(navn, alder, fDato, tlf, epost);
     }
 
     private DataModel createDataModelObjectFromGUI() {
@@ -169,7 +176,6 @@ public class PrimaryController implements Initializable {
             Dato fDato = new Dato(dag, måned, år);
             return new DataModel(navn, alder, fDato, tlf, ePost);
         } catch (IllegalArgumentException e) {
-            lblAlder.setText("<< Input here must be a positive number! >>");
             return null;
         }
     }

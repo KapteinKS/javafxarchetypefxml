@@ -8,7 +8,7 @@ public class Register {
     public String registrerPerson(String innNavn, String innAlder, String dd, String mm,
                                   String yyyy, String innEpost, String innTelefon) {
 
-        if(!erBrukt(innNavn)) {
+        if(!erBrukt(innTelefon)){
             try{
                 int alder, dag, måned, år;
                 alder = avvik.alder(Integer.parseInt(innAlder));
@@ -34,10 +34,12 @@ public class Register {
                 return e.getMessage();
             } catch (InvalidPhoneException e) {
                 return e.getMessage();
+            } catch (NumberFormatException n){
+                return "Kun heltall kan skrives inn, ingen ord";
             }
             return "";
         } else {
-            return "Det finnes allerede en person med dette navnet i registeret";
+            return "Det finnes allerede en person med dette telefonnummeret i registeret";
         }
     }
 
@@ -47,21 +49,13 @@ public class Register {
         }
     }
 
-    public boolean erBrukt(String navn){
+    public boolean erBrukt(String tlf){
         for(Person p : liste){
-            if(p.getNavn().equalsIgnoreCase(navn)){
+            if(p.getTelefon().equals(tlf)){
                 return true;
             }
         }
         return false;
-    }
-
-    public String skrivUtListe(){
-        String ut = "";
-        for(Person p : liste){
-            ut += p + "\n";
-        }
-        return ut;
     }
 }
 
