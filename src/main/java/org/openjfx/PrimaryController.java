@@ -1,24 +1,23 @@
 package org.openjfx;
 
-        import java.io.File;
-        import java.io.IOException;
-        import java.net.URL;
-        import java.nio.file.Path;
-        import java.nio.file.Paths;
-        import java.util.List;
-        import java.util.ResourceBundle;
-        import javafx.fxml.Initializable;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TableView;
-        import javafx.scene.control.MenuItem;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.*;
-        import javafx.scene.control.cell.TextFieldTableCell;
-        import javafx.stage.FileChooser;
-        import javafx.stage.Stage;
-        import javafx.util.converter.IntegerStringConverter;
-
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.MenuItem;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 public class PrimaryController implements Initializable {
     Register register = new Register();
@@ -118,7 +117,6 @@ public class PrimaryController implements Initializable {
             FileSaverTxt.skrivTilFil(register.liste, path);
             warninglbl.setText("Register lagret");
         }
-
     }
 
     @FXML
