@@ -144,10 +144,10 @@ public class SecondaryController implements Initializable {
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
             DataModel obj = createDataModelObjectFromGUI();
-                if (obj != null) {
-                    resetTxtFields();
-                    collection.addElement(obj);
-                }
+            if (obj != null) {
+                resetTxtFields();
+                collection.addElement(obj);
+            }
         }
     }
 
@@ -197,23 +197,14 @@ public class SecondaryController implements Initializable {
 
     public void nameDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
-        Person p = register.getPerson(colTlf.getText());
-        if(p != null) {
-            p.setNavn(event.getNewValue());
-        }
     }
 
     public void phoneDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
         event.getRowValue().setTlf(event.getNewValue());
-        Person p = register.getPerson(event.getOldValue());
-        p.setePost(event.getNewValue());
     }
 
     public void emailDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
         event.getRowValue().setePost(event.getNewValue());
-        Person p = register.getPerson(colTlf.getText());
-        p.setePost(event.getNewValue());
-
     }
 
     public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
