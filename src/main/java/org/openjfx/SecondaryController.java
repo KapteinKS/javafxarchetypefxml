@@ -17,8 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
-
 
 public class SecondaryController implements Initializable {
     Register register = new Register();
@@ -26,6 +24,8 @@ public class SecondaryController implements Initializable {
     Stage mainStage = new Stage();
     File selectedFile;
     Avvik avvik = new Avvik();
+    private IntegerStringConverter intStrConverter = new IntegerStringConverter();
+
     private  DataCollection collection = new DataCollection();
     @FXML
     private Button btsVisReg;
@@ -70,7 +70,7 @@ public class SecondaryController implements Initializable {
     private MenuItem lagreFilSom;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView tableView;
 
     @FXML
     private TableColumn<DataModel, String> colNavn;
@@ -90,7 +90,7 @@ public class SecondaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
-        colAlder.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
     }
 
     @FXML
@@ -217,7 +217,14 @@ public class SecondaryController implements Initializable {
     }
 
     public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
-        event.getRowValue().setAlder(event.getNewValue());
-        Person p = register.getPerson(colTlf.getText());
+        if(intStrConverter.wasSuccessful()) {
+            try {
+                event.getRowValue().setAlder(event.getNewValue());
+            } catch (IllegalArgumentException e){
+                org.openjfx.Dialogs.showErrorDialog("Du kan ikke taste inn et negativt tall");
+            }
+        }
+
+        tableView.refresh();
     }
 }
