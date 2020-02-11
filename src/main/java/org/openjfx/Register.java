@@ -57,9 +57,16 @@ public class Register {
         }
         return false;
     }
+
+    public Person getPerson(String tlf){
+        for(Person p : liste){
+            if(p.getTelefon().equals(tlf)){
+                return p;
+            }
+        }
+        return null;
+    }
 }
-
-
 
 class Dato{
     private int dag, måned, år;

@@ -1,4 +1,2 @@
 Sander Tøien;24;9;6;1995;sander.toien@outlook.com;46196490
-Kjetil Thorstensen;25;25;4;1994;ktor@hotmail.com;42424242
-Mats Ove Vada;21;21;2;1998;matsovevada@hotmail.com;47474747
-Karoline Wennberg;20;9;9;1999;kwennberg@hotmail.com;44444444
+Mats Ove Vada;21;21;2;1998;matsovevada@hotmail.com;46464646

@@ -14,7 +14,17 @@ public class DataCollection {
     }
 
     public void addElement(DataModel obj) {
-        list.add(obj);
+        if(!erBrukt(obj)) {
+            list.add(obj);
+        }
     }
 
+    public boolean erBrukt(DataModel obj){
+        for(DataModel d : list){
+            if(d.getTlf().equals(obj.getTlf())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

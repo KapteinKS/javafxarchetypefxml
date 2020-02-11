@@ -19,16 +19,32 @@ public class Person {
         return navn;
     }
 
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
     public int getAlder(){
         return alder;
+    }
+
+    public void setAlder(int alder) {
+        this.alder = alder;
     }
 
     public String getePost() {
         return ePost;
     }
 
+    public void setePost(String ePost) {
+        this.ePost = ePost;
+    }
+
     public String getTelefon() {
         return telefon;
+    }
+
+    public void setTelefon(String telefon) {
+        this.telefon = telefon;
     }
 
     public Dato getfDato() {

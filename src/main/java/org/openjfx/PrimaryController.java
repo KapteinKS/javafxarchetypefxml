@@ -1,23 +1,23 @@
 package org.openjfx;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.MenuItem;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
+        import java.io.File;
+        import java.io.IOException;
+        import java.net.URL;
+        import java.nio.file.Path;
+        import java.nio.file.Paths;
+        import java.util.List;
+        import java.util.ResourceBundle;
+        import javafx.fxml.Initializable;
+        import javafx.scene.control.TableColumn;
+        import javafx.scene.control.TableView;
+        import javafx.scene.control.MenuItem;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.*;
+        import javafx.scene.control.cell.TextFieldTableCell;
+        import javafx.stage.FileChooser;
+        import javafx.stage.Stage;
+        import javafx.util.converter.IntegerStringConverter;
 
 
 public class PrimaryController implements Initializable {
@@ -142,17 +142,17 @@ public class PrimaryController implements Initializable {
     @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
-                warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
-                        lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
+            warninglbl.setText(register.registrerPerson(lblNavn.getText(), lblAlder.getText(),
+                    lblDD.getText(), lblMM.getText(), lblYYYY.getText(), txtEPost.getText(), txtTelefon.getText()));
 
-                DataModel obj = createDataModelObjectFromGUI();
+            DataModel obj = createDataModelObjectFromGUI();
 
-                if(warninglbl.getText().equals("")){
-                    if (obj != null) {
-                        resetTxtFields();
-                        collection.addElement(obj);
-                    }
+            if(warninglbl.getText().equals("")){
+                if (obj != null) {
+                    resetTxtFields();
+                    collection.addElement(obj);
                 }
+            }
         }
     }
 
@@ -194,17 +194,27 @@ public class PrimaryController implements Initializable {
 
     public void nameDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
+        Person p = register.getPerson(colTlf.getText());
+        if(p != null) {
+            p.setNavn(event.getNewValue());
+        }
     }
 
     public void phoneDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
-        event.getRowValue().setNavn(event.getNewValue());
+        event.getRowValue().setTlf(event.getNewValue());
+        Person p = register.getPerson(event.getOldValue());
+        p.setePost(event.getNewValue());
     }
 
     public void emailDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
-        event.getRowValue().setNavn(event.getNewValue());
+        event.getRowValue().setePost(event.getNewValue());
+        Person p = register.getPerson(colTlf.getText());
+        p.setePost(event.getNewValue());
+
     }
 
     public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
         event.getRowValue().setAlder(event.getNewValue());
+        Person p = register.getPerson(colTlf.getText());
     }
 }
