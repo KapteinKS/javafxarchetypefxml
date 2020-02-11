@@ -17,8 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
-
 
 public class SecondaryController implements Initializable {
     Register register = new Register();
@@ -26,6 +24,8 @@ public class SecondaryController implements Initializable {
     Stage mainStage = new Stage();
     File selectedFile;
     Avvik avvik = new Avvik();
+    private IntegerStringConverter intStrConverter = new IntegerStringConverter();
+
     private  DataCollection collection = new DataCollection();
     @FXML
     private Button btsVisReg;
@@ -70,7 +70,7 @@ public class SecondaryController implements Initializable {
     private MenuItem lagreFilSom;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView tableView;
 
     @FXML
     private TableColumn<DataModel, String> colNavn;
@@ -90,7 +90,7 @@ public class SecondaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
-        colAlder.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
     }
 
     @FXML
@@ -143,14 +143,11 @@ public class SecondaryController implements Initializable {
     @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
-            try {
-                DataModel obj = createDataModelObjectFromGUI();
+            DataModel obj = createDataModelObjectFromGUI();
                 if (obj != null) {
                     resetTxtFields();
                     collection.addElement(obj);
                 }
-            }
-
         }
     }
 
@@ -164,20 +161,27 @@ public class SecondaryController implements Initializable {
     }
 
     private DataModel createDataModelObjectFromGUI() {
-        String navn = lblNavn.getText();
-        String ePost = txtEPost.getText();
-        String tlf = txtTelefon.getText();
-
         try {
+            String navn = avvik.sjekkNavn(lblNavn.getText());
             int alder = avvik.alder(Integer.parseInt(lblAlder.getText()));
-            int dag = Integer.parseInt(lblDD.getText());
-            int måned = Integer.parseInt(lblMM.getText());
-            int år = Integer.parseInt(lblYYYY.getText());
+            int dag = avvik.dag(Integer.parseInt(lblDD.getText()));
+            int måned = avvik.måned(Integer.parseInt(lblMM.getText()));
+            int år = avvik.år(Integer.parseInt(lblYYYY.getText()));
+            String tlf = avvik.sjekkTelefon(txtTelefon.getText());
+            String ePost = avvik.sjekkEpost(txtEPost.getText());
+
             Dato fDato = new Dato(dag, måned, år);
             return new DataModel(navn, alder, fDato, tlf, ePost);
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidNameException e) {
+            warninglbl.setText(e.getMessage());
+        } catch (NumberFormatException n){
+            warninglbl.setText("Kun heltall kan skrives inn i alder og datofelt");
+            return null;
+        } catch (InvalidAgeException | InvalidDateException | InvalidEmailException | InvalidPhoneException e){
+            warninglbl.setText(e.getMessage());
             return null;
         }
+        return null;
     }
 
     private void resetTxtFields() {
@@ -188,6 +192,7 @@ public class SecondaryController implements Initializable {
         lblYYYY.setText("");
         txtEPost.setText("");
         txtTelefon.setText("");
+        warninglbl.setText("");
     }
 
     public void nameDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
@@ -212,7 +217,14 @@ public class SecondaryController implements Initializable {
     }
 
     public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
-        event.getRowValue().setAlder(event.getNewValue());
-        Person p = register.getPerson(colTlf.getText());
+        if(intStrConverter.wasSuccessful()) {
+            try {
+                event.getRowValue().setAlder(event.getNewValue());
+            } catch (IllegalArgumentException e){
+                org.openjfx.Dialogs.showErrorDialog("Du kan ikke taste inn et negativt tall");
+            }
+        }
+
+        tableView.refresh();
     }
 }
