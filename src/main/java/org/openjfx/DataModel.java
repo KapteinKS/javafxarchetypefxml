@@ -1,17 +1,20 @@
 package org.openjfx;
 
-// #shamelessripoff
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class DataModel {
+public class DataModel implements Serializable{
 
-    private SimpleStringProperty navn;
-    private SimpleIntegerProperty alder;
-    private SimpleObjectProperty fDato;
-    private SimpleStringProperty tlf;
-    private SimpleStringProperty ePost;
+    private transient SimpleStringProperty navn;
+    private transient SimpleIntegerProperty alder;
+    private transient SimpleObjectProperty fDato;
+    private transient SimpleStringProperty tlf;
+    private transient SimpleStringProperty ePost;
 
     public DataModel(String navn, int alder, Dato fDato, String tlf, String ePost) {
         if(alder < 0) {
@@ -67,5 +70,32 @@ public class DataModel {
 
     public void setePost(String ePost) {
         this.ePost.set(ePost);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s er %s år, født %s, epost: %s, Tlf: %s", navn, alder, fDato, ePost, tlf);
+    }
+
+    private void writeObject(ObjectOutputStream s) throws IOException {
+        s.writeUTF(navn.getValue());
+        s.writeInt(alder.getValue());
+        s.writeObject(fDato.getValue());
+        s.writeUTF(tlf.getValue());
+        s.writeUTF(ePost.getValue());
+    }
+
+    private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException{
+        String name = s.readUTF();
+        int age = s.readInt();
+        Dato date = (Dato) s.readObject();
+        String phone = s.readUTF();
+        String email = s.readUTF();
+
+        this.navn = new SimpleStringProperty(name);
+        this.alder = new SimpleIntegerProperty(age);
+        this.fDato = new SimpleObjectProperty(date);
+        this.tlf = new SimpleStringProperty(phone);
+        this.ePost = new SimpleStringProperty(email);
     }
 }

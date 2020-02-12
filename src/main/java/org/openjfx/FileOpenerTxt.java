@@ -7,21 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOpenerTxt implements FileOpener {
-    public static List<Person> lesFil(Path path) throws IOException {
-        ArrayList<Person> plist = new ArrayList<>();
+    public static List<DataModel> lesFil(Path path) throws IOException {
+        ArrayList<DataModel> plist = new ArrayList<>();
         try(var reader = Files.newBufferedReader(path)){
             String line;
             while ((line = reader.readLine()) != null){
-                Person p = parsePerson(line);
-                if(p != null) {
-                    plist.add(p);
+                DataModel dm = parsePerson(line);
+                if(dm != null) {
+                    plist.add(dm);
                 }
             }
         }
         return plist;
     }
 
-    public static Person parsePerson(String line) throws InvalidPersonFormatException {
+    public static DataModel parsePerson(String line) throws InvalidPersonFormatException {
 
         String[] strings = line.split(FileSaverTxt.DELIMITER);
         if((strings.length) != 7){
@@ -36,8 +36,9 @@ public class FileOpenerTxt implements FileOpener {
             int år = Integer.parseInt(strings[4]);
             String epost = strings[5];
             String telefon = strings[6];
+            Dato dato = new Dato(dag, måned, år);
 
-            return new Person(navn, alder, dag, måned, år, epost, telefon);
+            return new DataModel(navn, alder, dato, epost, telefon);
         } catch (NumberFormatException n){
             System.err.println(n.getMessage());
         }

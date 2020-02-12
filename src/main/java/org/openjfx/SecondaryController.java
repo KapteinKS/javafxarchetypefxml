@@ -1,12 +1,16 @@
 package org.openjfx;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,8 +29,8 @@ public class SecondaryController implements Initializable {
     File selectedFile;
     Avvik avvik = new Avvik();
     private IntegerStringConverter intStrConverter = new IntegerStringConverter();
+    private DataCollection collection = new DataCollection();
 
-    private  DataCollection collection = new DataCollection();
     @FXML
     private Button btsVisReg;
 
@@ -93,6 +97,7 @@ public class SecondaryController implements Initializable {
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
     }
 
+    /*
     @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
@@ -103,6 +108,26 @@ public class SecondaryController implements Initializable {
             var path = Paths.get(paths);
             FileSaverTxt.skrivTilFil(register.liste, path);
             warninglbl.setText("Register lagret");
+        }
+    }
+    */
+
+    @FXML
+    void saveRegistryAs(ActionEvent event) throws IOException {
+        fileChooser.setTitle("Save to which file?");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
+        selectedFile = fileChooser.showSaveDialog(mainStage);
+        if(selectedFile != null){
+            String paths = selectedFile.getAbsolutePath();
+            var path = Paths.get(paths);
+
+            try (OutputStream os = Files.newOutputStream(path);
+                 ObjectOutputStream out = new ObjectOutputStream(os)) {
+                ArrayList<DataModel> liste = new ArrayList<>(collection.getList());
+
+                    out.writeObject(new ArrayList<> (liste));
+
+            }
         }
     }
 
@@ -119,26 +144,56 @@ public class SecondaryController implements Initializable {
             FileSaverTxt.skrivTilFil(register.liste, path);
             warninglbl.setText("Register lagret");
         }
-
     }
 
     @FXML
-    void chooseFile(ActionEvent event) throws IOException {
+    void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
+        String fileType = "";
         fileChooser.setTitle("Velg en fil som inneholder register");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Object Files", "*.jobj"),
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         selectedFile = fileChooser.showOpenDialog(mainStage);
         if(selectedFile != null) {
             String path = selectedFile.getAbsolutePath();
             Path paths = Paths.get(path);
-            List<Person> personer = FileOpenerTxt.lesFil(paths);
-            for (Person p : personer) {
-                register.leggTil(p);
-                DataModel dm = createDMfromPerson(p);
-                collection.addElement(dm);
+            String stringPath = paths.toString();
+            String [] pathArray = stringPath.split("\\.");
+            fileType = pathArray[pathArray.length-1];
+
+            if(fileType.equals("jobj")){
+                System.out.println("Jobj valgt");
+                ObservableList<DataModel> list = FileOpenerJobj.lesFil(paths);
+
+                for(DataModel dm : list){
+                    collection.addElement(dm);
+                }
             }
-            warninglbl.setText("Person(er) lagt inn fra fil");
+
         }
     }
+
+/*
+    @FXML
+    void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
+        fileChooser.setTitle("Velg en fil som inneholder register");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.jobj"));
+        selectedFile = fileChooser.showOpenDialog(mainStage);
+        if (selectedFile != null) {
+            String path = selectedFile.getAbsolutePath();
+            Path paths = Paths.get(path);
+
+            try(InputStream in = Files.newInputStream(paths);
+            ObjectInputStream oin = new ObjectInputStream(in))
+            {
+                List<DataModel> dataModelList = (List<DataModel>)oin.readObject();
+                for(DataModel d : dataModelList){
+                    collection.addElement(d);
+                }
+            }
+        }
+    }
+ */
 
     @FXML
     void regPers(ActionEvent event) {

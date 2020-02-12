@@ -19,6 +19,10 @@ public class DataCollection {
         }
     }
 
+    public ObservableList<DataModel> getList(){
+        return list;
+    }
+
     public boolean erBrukt(DataModel obj){
         for(DataModel d : list){
             if(d.getTlf().equals(obj.getTlf())){

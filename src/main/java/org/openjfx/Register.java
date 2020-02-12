@@ -1,5 +1,6 @@
 package org.openjfx;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Register {
@@ -68,7 +69,7 @@ public class Register {
     }
 }
 
-class Dato{
+class Dato implements Serializable {
     private int dag, måned, år;
 
     public Dato(int dag, int måned, int år) {

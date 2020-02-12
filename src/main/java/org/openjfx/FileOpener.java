@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface FileOpener {
-    public static List<Person> lesFil(Path path) throws IOException {
+    public static List<DataModel> lesFil(Path path) throws IOException {
         return null;
     }
 }

@@ -119,6 +119,7 @@ public class PrimaryController implements Initializable {
         }
     }
 
+    /*
     @FXML
     void chooseFile(ActionEvent event) throws IOException {
         fileChooser.setTitle("Velg en fil som inneholder register");
@@ -136,6 +137,8 @@ public class PrimaryController implements Initializable {
             warninglbl.setText("Person(er) lagt inn fra fil");
         }
     }
+
+     */
 
     @FXML
     void regPers(ActionEvent event) {
