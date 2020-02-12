@@ -28,7 +28,7 @@ public class SecondaryController implements Initializable {
     Stage mainStage = new Stage();
     File selectedFile;
     Avvik avvik = new Avvik();
-    private IntegerStringConverter intStrConverter = new IntegerStringConverter();
+    public IntegerStringConverter intStrConverter = new IntegerStringConverter();
     private DataCollection collection = new DataCollection();
 
     @FXML
@@ -267,7 +267,7 @@ public class SecondaryController implements Initializable {
             try {
                 event.getRowValue().setAlder(event.getNewValue());
             } catch (IllegalArgumentException e){
-                org.openjfx.Dialogs.showErrorDialog("Du kan ikke taste inn et negativt tall");
+                Dialogs.showErrorDialog("Du kan ikke taste inn et negativt tall");
             }
         }
 

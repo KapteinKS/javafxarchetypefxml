@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import javafx.scene.control.Alert;
+import javafx.util.converter.*;
 
 public class IntegerStringConverter extends javafx.util.converter.IntegerStringConverter {
     private boolean conversionSuccessful;
