@@ -1,3 +1,4 @@
+/*
 package org.openjfx;
 
 import java.io.*;
@@ -178,7 +179,6 @@ public class SecondaryController implements Initializable {
         }
     }
 
-/*
     @FXML
     void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
         fileChooser.setTitle("Velg en fil som inneholder register");
@@ -198,7 +198,7 @@ public class SecondaryController implements Initializable {
             }
         }
     }
- */
+
 
     @FXML
     void regPers(ActionEvent event) {
@@ -270,3 +270,4 @@ public class SecondaryController implements Initializable {
         tableView.refresh();
     }
 }
+*/
