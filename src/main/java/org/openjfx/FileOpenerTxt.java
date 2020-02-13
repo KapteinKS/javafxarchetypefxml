@@ -1,5 +1,7 @@
 package org.openjfx;
 
+import javafx.collections.ObservableList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOpenerTxt implements FileOpener {
-    public static List<DataModel> lesFil(Path path) throws IOException {
+    public static ArrayList<DataModel> lesFil(Path path) throws IOException {
         ArrayList<DataModel> plist = new ArrayList<>();
         try(var reader = Files.newBufferedReader(path)){
             String line;

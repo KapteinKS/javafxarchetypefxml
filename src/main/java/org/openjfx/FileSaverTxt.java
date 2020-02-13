@@ -9,11 +9,11 @@ import java.util.List;
 public class FileSaverTxt implements FileSaver{
     public static String DELIMITER = ";";
 
-    public static void skrivTilFil(List<Person> personList, Path path) throws IOException {
+    public static void skrivTilFil(List<DataModel> dmList, Path path) throws IOException {
 
         StringBuffer str = new StringBuffer();
-        for(Person p : personList) {
-            str.append(formatPerson(p));
+        for(DataModel dm : dmList) {
+            str.append(formatPerson(dm));
             str.append("\n");
         }
         writeToFile(path, str.toString());
@@ -23,11 +23,11 @@ public class FileSaverTxt implements FileSaver{
         Files.write(path, str.getBytes());
     }
 
-    public static String formatPerson(Person p) {
-        String ut = p.getNavn() + DELIMITER + p.getAlder() + DELIMITER;
-        Dato fDato = p.getfDato();
+    public static String formatPerson(DataModel dm) {
+        String ut = dm.getNavn() + DELIMITER + dm.getAlder() + DELIMITER;
+        Dato fDato = dm.getFDato();
         ut += fDato.getDag() + DELIMITER + fDato.getMåned() + DELIMITER +
-                fDato.getÅr() + DELIMITER + p.getePost() + DELIMITER + p.getTelefon();
+                fDato.getÅr() + DELIMITER + dm.getEPost() + DELIMITER + dm.getTlf();
         return ut;
 
     }

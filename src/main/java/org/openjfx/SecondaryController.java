@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -23,13 +22,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class SecondaryController implements Initializable {
-    Register register = new Register();
     FileChooser fileChooser = new FileChooser();
     Stage mainStage = new Stage();
     File selectedFile;
     Avvik avvik = new Avvik();
     private IntegerStringConverter intStrConverter = new IntegerStringConverter();
     private DataCollection collection = new DataCollection();
+    String fileType = "";
 
     @FXML
     private Button btsVisReg;
@@ -97,58 +96,57 @@ public class SecondaryController implements Initializable {
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
     }
 
-    /*
     @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        selectedFile = fileChooser.showSaveDialog(mainStage);
-        if(selectedFile != null) {
-            String paths = selectedFile.getAbsolutePath();
-            var path = Paths.get(paths);
-            FileSaverTxt.skrivTilFil(register.liste, path);
-            warninglbl.setText("Register lagret");
-        }
-    }
-    */
-
-    @FXML
-    void saveRegistryAs(ActionEvent event) throws IOException {
-        fileChooser.setTitle("Save to which file?");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
         selectedFile = fileChooser.showSaveDialog(mainStage);
         if(selectedFile != null){
-            String paths = selectedFile.getAbsolutePath();
-            var path = Paths.get(paths);
-
-            try (OutputStream os = Files.newOutputStream(path);
-                 ObjectOutputStream out = new ObjectOutputStream(os)) {
-                ArrayList<DataModel> liste = new ArrayList<>(collection.getList());
-
-                    out.writeObject(new ArrayList<> (liste));
-
+            String path = selectedFile.getAbsolutePath();
+            Path paths = Paths.get(path);
+            String stringPath = paths.toString();
+            String [] pathArray = stringPath.split("\\.");
+            fileType = pathArray[pathArray.length-1];
+            if(fileType.equals("txt")){
+                FileSaverTxt.skrivTilFil(collection.getList(), paths);
+            } else if(fileType.equals("jobj")){
+                FileSaverJobj.srivTilFil(collection.getList(), paths);
+            } else {
+                org.openjfx.Dialogs.showErrorDialog("Feil filformat valgt!");
             }
         }
     }
 
     @FXML
     void saveRegistry(ActionEvent event) throws IOException {
-        fileChooser.setTitle("Save to which file?");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         if(selectedFile == null) {
+            fileChooser.setTitle("Save to which file?");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                    new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
             selectedFile = fileChooser.showSaveDialog(mainStage);
         }
-        if(selectedFile != null) {
-            String paths = selectedFile.getAbsolutePath();
-            var path = Paths.get(paths);
-            FileSaverTxt.skrivTilFil(register.liste, path);
-            warninglbl.setText("Register lagret");
+        if (selectedFile != null) {
+            String path = selectedFile.getAbsolutePath();
+            Path paths = Paths.get(path);
+            String stringPath = paths.toString();
+            String[] pathArray = stringPath.split("\\.");
+            fileType = pathArray[pathArray.length - 1];
+            if (fileType.equals("txt")) {
+                FileSaverTxt.skrivTilFil(collection.getList(), paths);
+            } else if (fileType.equals("jobj")) {
+                FileSaverJobj.srivTilFil(collection.getList(), paths);
+            } else {
+                org.openjfx.Dialogs.showErrorDialog("Feil filformat valgt!");
+            }
         }
+
     }
 
     @FXML
     void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
-        String fileType = "";
         fileChooser.setTitle("Velg en fil som inneholder register");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Object Files", "*.jobj"),
@@ -162,12 +160,19 @@ public class SecondaryController implements Initializable {
             fileType = pathArray[pathArray.length-1];
 
             if(fileType.equals("jobj")){
-                System.out.println("Jobj valgt");
                 ObservableList<DataModel> list = FileOpenerJobj.lesFil(paths);
 
                 for(DataModel dm : list){
                     collection.addElement(dm);
                 }
+            } else if(fileType.equals("txt")){
+                ArrayList<DataModel> list = FileOpenerTxt.lesFil(paths);
+
+                for(DataModel dm : list){
+                    collection.addElement(dm);
+                }
+            } else {
+                org.openjfx.Dialogs.showErrorDialog("Feil filformat valgt");
             }
 
         }

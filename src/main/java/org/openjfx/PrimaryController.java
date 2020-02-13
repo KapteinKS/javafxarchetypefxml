@@ -90,7 +90,7 @@ public class PrimaryController implements Initializable {
         collection.attachTableView(tableView);
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     }
-
+/*
     @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
@@ -118,6 +118,9 @@ public class PrimaryController implements Initializable {
             warninglbl.setText("Register lagret");
         }
     }
+
+
+ */
 
     /*
     @FXML
