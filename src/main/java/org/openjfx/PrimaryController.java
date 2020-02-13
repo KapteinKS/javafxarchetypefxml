@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.Observable;
@@ -100,19 +101,19 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
     }
 
     @FXML
     void btnFiltrer(ActionEvent event){
-        
+
     }
 
     @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
         selectedFile = fileChooser.showSaveDialog(mainStage);
         if(selectedFile != null){
             String path = selectedFile.getAbsolutePath();
@@ -134,9 +135,6 @@ public class PrimaryController implements Initializable {
     void saveRegistry(ActionEvent event) throws IOException {
         if(selectedFile == null) {
             fileChooser.setTitle("Save to which file?");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
             selectedFile = fileChooser.showSaveDialog(mainStage);
         }
         if (selectedFile != null) {
@@ -159,9 +157,6 @@ public class PrimaryController implements Initializable {
     @FXML
     void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
         fileChooser.setTitle("Velg en fil som inneholder register");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Object Files", "*.jobj"),
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         selectedFile = fileChooser.showOpenDialog(mainStage);
         if(selectedFile != null) {
             String path = selectedFile.getAbsolutePath();
