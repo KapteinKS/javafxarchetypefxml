@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 public class DataCollection {
-
+    // List of Persons
     private ObservableList<DataModel> list = FXCollections.observableArrayList();
 
     public void attachTableView(TableView tv) {
@@ -31,4 +31,8 @@ public class DataCollection {
         }
         return false;
     }
+
+    /* metode som konverterer 'list' stream, og filtrerer streamen basert på choicebox */
+    /* Som så kalles i primarykontroller på knappen (*1) */
+
 }
