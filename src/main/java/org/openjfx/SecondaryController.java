@@ -6,15 +6,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,6 +74,12 @@ public class SecondaryController implements Initializable {
     private MenuItem lagreFilSom;
 
     @FXML
+    private ChoiceBox<?> filterBox;
+
+    @FXML
+    private TextField txtFilter;
+
+    @FXML
     private TableView tableView;
 
     @FXML
@@ -129,6 +135,11 @@ public class SecondaryController implements Initializable {
 
             }
         }
+    }
+
+    @FXML
+    void btnFiltrer(ActionEvent event) {
+
     }
 
     @FXML
