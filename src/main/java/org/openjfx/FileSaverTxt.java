@@ -27,7 +27,7 @@ public class FileSaverTxt implements FileSaver{
         String ut = dm.getNavn() + DELIMITER + dm.getAlder() + DELIMITER;
         Dato fDato = dm.getFDato();
         ut += fDato.getDag() + DELIMITER + fDato.getMåned() + DELIMITER +
-                fDato.getÅr() + DELIMITER + dm.getEPost() + DELIMITER + dm.getTlf();
+                fDato.getÅr() + DELIMITER +   dm.getTlf() + DELIMITER + dm.getEPost();
         return ut;
 
     }

@@ -211,15 +211,6 @@ public class SecondaryController implements Initializable {
         }
     }
 
-    private DataModel createDMfromPerson(Person p){
-        String navn = p.getNavn();
-        int alder = p.getAlder();
-        Dato fDato = p.getfDato();
-        String tlf = p.getTelefon();
-        String epost = p.getePost();
-        return new DataModel(navn, alder, fDato, tlf, epost);
-    }
-
     private DataModel createDataModelObjectFromGUI() {
         try {
             String navn = avvik.sjekkNavn(lblNavn.getText());

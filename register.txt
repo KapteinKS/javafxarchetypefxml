@@ -1,2 +1,2 @@
-Sander Tøien;24;9;6;1995;sander.toien@outlook.com;46196490
-Mats Ove Vada;22;21;2;1998;matsovevada@hotmail.com;46464646
+Sander Tøien;24;9;6;1995;46196490;sander.toien@outlook.com
+Mats Ove Vada;22;21;2;1998;46464646;matsovevada@hotmail.com
