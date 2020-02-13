@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 public class DataCollection {
-    // List of Persons
+
     private ObservableList<DataModel> list = FXCollections.observableArrayList();
 
     public void attachTableView(TableView tv) {
@@ -31,8 +31,19 @@ public class DataCollection {
         }
         return false;
     }
+    //Her har du metoden Henrik :)
+    public ObservableList filter (String choiceBoxValue, String filterInput){
+        if(choiceBoxValue == "Navn"){
 
-    /* metode som konverterer 'list' stream, og filtrerer streamen basert på choicebox */
-    /* Som så kalles i primarykontroller på knappen (*1) */
+        }else if(choiceBoxValue == "Alder"){
 
+        }else if(choiceBoxValue == "Telefonnr"){
+
+        }else if(choiceBoxValue == "Epost"){
+
+        }else{
+
+        }
+        return null;
+    }
 }

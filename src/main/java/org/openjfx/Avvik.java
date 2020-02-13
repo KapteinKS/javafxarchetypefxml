@@ -1,8 +1,10 @@
 package org.openjfx;
 
+import org.openjfx.exceptions.*;
+
 public class Avvik {
 
-    public int alder(int innAlder) throws InvalidAgeException{
+    public int alder(int innAlder) throws InvalidAgeException {
         if(innAlder < 0 || innAlder > 120){
             throw new InvalidAgeException("Alder må være mellom 0 og 120");
         }
@@ -39,14 +41,14 @@ public class Avvik {
             throw new InvalidDateException(år + " har kun 29 dager i et skuddår");
         }
     }
-    public String sjekkNavn(String navn) throws InvalidNameException{
+    public String sjekkNavn(String navn) throws InvalidNameException {
         if(!navn.matches("[a-zæøåA-ZÆØÅ][^#&<>\"~;$^%{}?]{1,40}$")){
             throw new InvalidNameException("Ulovlig karakter i navn");
         } else {
             return navn;
         }
     }
-    public String sjekkEpost(String epost) throws InvalidEmailException{
+    public String sjekkEpost(String epost) throws InvalidEmailException {
         String pat = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         if(!epost.matches(pat)){
             throw new InvalidEmailException("Ulovlig karakter i e-post");
@@ -55,7 +57,7 @@ public class Avvik {
             return epost;
         }
     }
-    public String sjekkTelefon(String telefon) throws InvalidPhoneException{
+    public String sjekkTelefon(String telefon) throws InvalidPhoneException {
         String pat = "^(\\+|00){0,2}(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\\d{1,14}$";
         if(!telefon.matches(pat)){
             throw new InvalidPhoneException("Ulovlig karakter i telefonnr (Mellomrom, parantes eller bindestrek)");

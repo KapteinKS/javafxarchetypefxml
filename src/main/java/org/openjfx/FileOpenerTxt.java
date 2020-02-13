@@ -1,12 +1,10 @@
 package org.openjfx;
 
-import javafx.collections.ObservableList;
-
+import org.openjfx.exceptions.InvalidPersonFormatException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FileOpenerTxt implements FileOpener {
     public static ArrayList<DataModel> lesFil(Path path) throws IOException {
