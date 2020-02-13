@@ -7,12 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
 
 import javafx.collections.FXCollections;
-=======
 import javafx.beans.Observable;
->>>>>>> 0374ad4dcc3c004e004509bcd59d424bd1448b56
+
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
