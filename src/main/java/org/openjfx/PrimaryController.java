@@ -73,6 +73,12 @@ public class PrimaryController implements Initializable {
     private MenuItem lagreFilSom;
 
     @FXML
+    private ChoiceBox<?> filterBox;
+
+    @FXML
+    private TextField txtFilter;
+
+    @FXML
     private TableView tableView;
 
     @FXML
@@ -94,6 +100,11 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
+    }
+
+    @FXML
+    void btnFilter(ActionEvent event){
+
     }
 
     @FXML
@@ -177,28 +188,6 @@ public class PrimaryController implements Initializable {
 
         }
     }
-
-/*
-    @FXML
-    void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
-        fileChooser.setTitle("Velg en fil som inneholder register");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.jobj"));
-        selectedFile = fileChooser.showOpenDialog(mainStage);
-        if (selectedFile != null) {
-            String path = selectedFile.getAbsolutePath();
-            Path paths = Paths.get(path);
-
-            try(InputStream in = Files.newInputStream(paths);
-            ObjectInputStream oin = new ObjectInputStream(in))
-            {
-                List<DataModel> dataModelList = (List<DataModel>)oin.readObject();
-                for(DataModel d : dataModelList){
-                    collection.addElement(d);
-                }
-            }
-        }
-    }
- */
 
     @FXML
     void regPers(ActionEvent event) {
