@@ -5,11 +5,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.Collection;
 import java.util.List;
->>>>>>> 41a1235ab1a1363cacd3758b732cdd06acb4a2a1
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
