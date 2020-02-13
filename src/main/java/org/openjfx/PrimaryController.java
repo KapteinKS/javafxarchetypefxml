@@ -103,8 +103,8 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    void btnFilter(ActionEvent event){
-
+    void btnFiltrer(ActionEvent event){
+        
     }
 
     @FXML
