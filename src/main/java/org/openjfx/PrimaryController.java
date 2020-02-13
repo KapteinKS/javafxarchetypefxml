@@ -5,6 +5,11 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Collection;
+import java.util.List;
+>>>>>>> 41a1235ab1a1363cacd3758b732cdd06acb4a2a1
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -99,19 +104,19 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
     }
 
     @FXML
     void btnFiltrer(ActionEvent event){
-        
+
     }
 
     @FXML
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
         selectedFile = fileChooser.showSaveDialog(mainStage);
         if(selectedFile != null){
             String path = selectedFile.getAbsolutePath();
@@ -133,9 +138,6 @@ public class PrimaryController implements Initializable {
     void saveRegistry(ActionEvent event) throws IOException {
         if(selectedFile == null) {
             fileChooser.setTitle("Save to which file?");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("Object Files", "*.jobj"));
             selectedFile = fileChooser.showSaveDialog(mainStage);
         }
         if (selectedFile != null) {
@@ -158,9 +160,6 @@ public class PrimaryController implements Initializable {
     @FXML
     void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
         fileChooser.setTitle("Velg en fil som inneholder register");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Object Files", "*.jobj"),
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
         selectedFile = fileChooser.showOpenDialog(mainStage);
         if(selectedFile != null) {
             String path = selectedFile.getAbsolutePath();

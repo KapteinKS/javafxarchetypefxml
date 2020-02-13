@@ -31,4 +31,19 @@ public class DataCollection {
         }
         return false;
     }
+    //Her har du metoden Henrik :)
+    public ObservableList filter (String choiceBoxValue, String filterInput){
+        if(choiceBoxValue == "Navn"){
+
+        }else if(choiceBoxValue == "Alder"){
+
+        }else if(choiceBoxValue == "Telefonnr"){
+
+        }else if(choiceBoxValue == "Epost"){
+
+        }else{
+
+        }
+        return null;
+    }
 }
