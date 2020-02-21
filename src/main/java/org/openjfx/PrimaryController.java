@@ -108,7 +108,10 @@ public class PrimaryController implements Initializable {
 
     @FXML
     void btnFiltrer(ActionEvent event){
-
+        /* HENRIK */
+        String choiceBoxValue = (String) filterBox.getValue();
+        String filterInput = txtFilter.getText();
+        DataCollection.filter(choiceBoxValue,filterInput);
     }
 
     @FXML

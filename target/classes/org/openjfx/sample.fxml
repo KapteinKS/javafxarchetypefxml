@@ -19,8 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -29,7 +28,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <AnchorPane prefHeight="634.0" prefWidth="844.0" GridPane.rowIndex="1">
+      <AnchorPane prefHeight="695.0" prefWidth="846.0" GridPane.rowIndex="1">
          <children>
             <Label layoutX="351.0" layoutY="40.0" prefHeight="35.0" prefWidth="170.0" text="Personregister" textAlignment="CENTER">
                <font>
@@ -45,7 +44,7 @@
             <Label layoutX="515.0" layoutY="96.0" text="Fødselsdag" />
             <TextField fx:id="txtTelefon" layoutX="131.0" layoutY="198.0" prefHeight="31.0" prefWidth="292.0" promptText="Telefonnummer" />
             <TextField fx:id="txtEPost" layoutX="436.0" layoutY="198.0" prefHeight="31.0" prefWidth="270.0" promptText="e-post" />
-            <Label fx:id="warninglbl" alignment="CENTER" layoutX="335.0" layoutY="250.0" prefHeight="31.0" prefWidth="373.0" />
+            <Label fx:id="warninglbl" alignment="CENTER" layoutX="260.0" layoutY="288.0" prefHeight="31.0" prefWidth="373.0" />
             <Button fx:id="btnRegistrer" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#regPers" text="Registrer" />
             <MenuBar fx:id="fileMenu" layoutX="-1.0" layoutY="-9.0">
               <menus>
@@ -60,7 +59,7 @@
             </MenuBar>
 
              <!--Tabell, redigerbar-->
-            <TableView fx:id="tableView" editable="true" layoutX="4.0" layoutY="312.0" prefHeight="317.0" prefWidth="842.0">
+            <TableView fx:id="tableView" editable="true" layoutX="12.0" layoutY="336.0" prefHeight="317.0" prefWidth="842.0">
               <columns>
                   <!-- Kolonne 1, navn, redigerbar-->
                 <TableColumn fx:id="colNavn" onEditCommit="#nameDataEdited" prefWidth="235.0" text="Navn">
