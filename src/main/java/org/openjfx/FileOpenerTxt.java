@@ -1,18 +1,17 @@
 package org.openjfx;
 
-import org.openjfx.exceptions.InvalidPersonFormatException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class FileOpenerTxt implements FileOpener {
-    public static ArrayList<DataModel> lesFil(Path path) throws IOException {
-        ArrayList<DataModel> plist = new ArrayList<>();
+    public static ArrayList<Person> lesFil(Path path) throws IOException {
+        ArrayList<Person> plist = new ArrayList<>();
         try(var reader = Files.newBufferedReader(path)){
             String line;
             while ((line = reader.readLine()) != null){
-                DataModel dm = parsePerson(line);
+                Person dm = parsePerson(line);
                 if(dm != null) {
                     plist.add(dm);
                 }
@@ -21,7 +20,7 @@ public class FileOpenerTxt implements FileOpener {
         return plist;
     }
 
-    public static DataModel parsePerson(String line) throws InvalidPersonFormatException {
+    public static Person parsePerson(String line) throws InvalidPersonFormatException {
 
         String[] strings = line.split(FileSaverTxt.DELIMITER);
         if((strings.length) != 7){
@@ -38,7 +37,7 @@ public class FileOpenerTxt implements FileOpener {
             String telefon = strings[6];
             Dato dato = new Dato(dag, måned, år);
 
-            return new DataModel(navn, alder, dato, epost, telefon);
+            return new Person(navn, alder, dato, epost, telefon);
         } catch (NumberFormatException n){
             System.err.println(n.getMessage());
         }

@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class DataModel implements Serializable{
+public class Person implements Serializable{
 
     private transient SimpleStringProperty navn;
     private transient SimpleIntegerProperty alder;
@@ -16,7 +16,7 @@ public class DataModel implements Serializable{
     private transient SimpleStringProperty tlf;
     private transient SimpleStringProperty ePost;
 
-    public DataModel(String navn, int alder, Dato fDato, String tlf, String ePost) {
+    public Person(String navn, int alder, Dato fDato, String tlf, String ePost) {
         if(alder < 0) {
             throw new IllegalArgumentException("intData cannot be negative");
         }

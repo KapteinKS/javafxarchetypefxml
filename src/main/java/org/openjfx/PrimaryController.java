@@ -5,8 +5,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
@@ -20,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.openjfx.exceptions.*;
 
 public class PrimaryController implements Initializable {
     FileChooser fileChooser = new FileChooser();
@@ -28,7 +25,7 @@ public class PrimaryController implements Initializable {
     File selectedFile;
     Avvik avvik = new Avvik();
     public IntegerStringConverter intStrConverter = new IntegerStringConverter();
-    private DataCollection collection = new DataCollection();
+    private PersonRegister collection = new PersonRegister();
     String fileType = "";
 
     @FXML
@@ -80,22 +77,22 @@ public class PrimaryController implements Initializable {
     private TextField txtFilter;
 
     @FXML
-    private TableView tableView;
+    private TableView<?> tableView;
 
     @FXML
-    private TableColumn<DataModel, String> colNavn;
+    private TableColumn<Person, String> colNavn;
 
     @FXML
-    private TableColumn<DataModel, Integer> colAlder;
+    private TableColumn<Person, Integer> colAlder;
 
     @FXML
-    private TableColumn<DataModel, String> colFødselsdag;
+    private TableColumn<Person, String> colFødselsdag;
 
     @FXML
-    private TableColumn<DataModel, String> colTlf;
+    private TableColumn<Person, String> colTlf;
 
     @FXML
-    private TableColumn<DataModel, String> colMail;
+    private TableColumn<Person, String> colMail;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,10 +105,25 @@ public class PrimaryController implements Initializable {
 
     @FXML
     void btnFiltrer(ActionEvent event){
+        System.out.println("TEST BUTTON");
         /* HENRIK */
         String choiceBoxValue = (String) filterBox.getValue();
+        System.out.println(choiceBoxValue);
         String filterInput = txtFilter.getText();
-        DataCollection.filter(choiceBoxValue,filterInput);
+        System.out.println(filterInput);
+
+
+        ObservableList<Person> newList =
+                PersonRegister.filter(choiceBoxValue,filterInput);
+
+        // Why won't this display the new tableview??
+        for (Person p : newList){
+            collection.addElement(p);
+            System.out.println(p);
+        }
+
+
+
     }
 
     @FXML
@@ -167,17 +179,16 @@ public class PrimaryController implements Initializable {
             String stringPath = paths.toString();
             String [] pathArray = stringPath.split("\\.");
             fileType = pathArray[pathArray.length-1];
-
             if(fileType.equals("jobj")){
-                ObservableList<DataModel> list = FileOpenerJobj.lesFil(paths);
+                ObservableList<Person> list = FileOpenerJobj.lesFil(paths);
 
-                for(DataModel dm : list){
+                for(Person dm : list){
                     collection.addElement(dm);
                 }
             } else if(fileType.equals("txt")){
-                ArrayList<DataModel> list = FileOpenerTxt.lesFil(paths);
+                ArrayList<Person> list = FileOpenerTxt.lesFil(paths);
 
-                for(DataModel dm : list){
+                for(Person dm : list){
                     collection.addElement(dm);
                 }
             } else {
@@ -190,15 +201,16 @@ public class PrimaryController implements Initializable {
     @FXML
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
-            DataModel obj = createDataModelObjectFromGUI();
+            Person obj = createDataModelObjectFromGUI();
             if (obj != null) {
                 resetTxtFields();
                 collection.addElement(obj);
             }
+
         }
     }
 
-    private DataModel createDataModelObjectFromGUI() {
+    private Person createDataModelObjectFromGUI() {
         try {
             String navn = avvik.sjekkNavn(lblNavn.getText());
             int alder = avvik.alder(Integer.parseInt(lblAlder.getText()));
@@ -207,9 +219,8 @@ public class PrimaryController implements Initializable {
             int år = avvik.år(Integer.parseInt(lblYYYY.getText()));
             String tlf = avvik.sjekkTelefon(txtTelefon.getText());
             String ePost = avvik.sjekkEpost(txtEPost.getText());
-
             Dato fDato = new Dato(dag, måned, år);
-            return new DataModel(navn, alder, fDato, tlf, ePost);
+            return new Person(navn, alder, fDato, tlf, ePost);
         } catch (InvalidNameException e) {
             warninglbl.setText(e.getMessage());
         } catch (NumberFormatException n){
@@ -233,19 +244,19 @@ public class PrimaryController implements Initializable {
         warninglbl.setText("");
     }
 
-    public void nameDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    public void nameDataEdited(TableColumn.CellEditEvent<Person, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
     }
 
-    public void phoneDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    public void phoneDataEdited(TableColumn.CellEditEvent<Person, String> event) {
         event.getRowValue().setTlf(event.getNewValue());
     }
 
-    public void emailDataEdited(TableColumn.CellEditEvent<DataModel, String> event) {
+    public void emailDataEdited(TableColumn.CellEditEvent<Person, String> event) {
         event.getRowValue().setePost(event.getNewValue());
     }
 
-    public void alderDataEdited(TableColumn.CellEditEvent<DataModel, Integer> event) {
+    public void alderDataEdited(TableColumn.CellEditEvent<Person, Integer> event) {
         if(intStrConverter.wasSuccessful()) {
             try {
                 event.getRowValue().setAlder(event.getNewValue());

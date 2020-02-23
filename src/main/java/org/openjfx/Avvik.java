@@ -1,7 +1,5 @@
 package org.openjfx;
 
-import org.openjfx.exceptions.*;
-
 public class Avvik {
 
     public int alder(int innAlder) throws InvalidAgeException {

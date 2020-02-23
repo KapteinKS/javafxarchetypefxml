@@ -8,16 +8,15 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileOpenerJobj implements FileOpener{
-    public static ObservableList<DataModel> lesFil(Path path) {
+    public static ObservableList<Person> lesFil(Path path) {
         try {
             InputStream in = Files.newInputStream(path);
             ObjectInputStream oin = new ObjectInputStream(in);
-            List<DataModel> dmList = (ArrayList<DataModel>) oin.readObject();
+            List<Person> dmList = (ArrayList<Person>) oin.readObject();
             return FXCollections.observableArrayList(dmList);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

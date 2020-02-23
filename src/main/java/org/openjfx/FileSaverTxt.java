@@ -3,16 +3,15 @@ package org.openjfx;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class FileSaverTxt implements FileSaver{
     public static String DELIMITER = ";";
 
-    public static void skrivTilFil(List<DataModel> dmList, Path path) throws IOException {
+    public static void skrivTilFil(List<Person> dmList, Path path) throws IOException {
 
         StringBuffer str = new StringBuffer();
-        for(DataModel dm : dmList) {
+        for(Person dm : dmList) {
             str.append(formatPerson(dm));
             str.append("\n");
         }
@@ -23,7 +22,7 @@ public class FileSaverTxt implements FileSaver{
         Files.write(path, str.getBytes());
     }
 
-    public static String formatPerson(DataModel dm) {
+    public static String formatPerson(Person dm) {
         String ut = dm.getNavn() + DELIMITER + dm.getAlder() + DELIMITER;
         Dato fDato = dm.getFDato();
         ut += fDato.getDag() + DELIMITER + fDato.getMåned() + DELIMITER +

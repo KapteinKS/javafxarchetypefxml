@@ -1,4 +1,4 @@
-package org.openjfx.exceptions;
+package org.openjfx;
 
 import java.io.IOException;
 
