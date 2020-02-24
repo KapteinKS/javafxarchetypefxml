@@ -54,12 +54,11 @@ public class PersonRegister {
                 return (ObservableList<Person>) filteredList;
             }
             case "Alder": {
-                 filteredList =
-                        list.parallelStream()
-                                .filter(p -> ((p.getAlder()) == (Integer.parseInt(filterInput))))
-                                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-                return (ObservableList<Person>) filteredList;
-
+                    filteredList =
+                            list.parallelStream()
+                                    .filter(p -> ((p.getAlder()) == (Integer.parseInt(filterInput))))
+                                    .collect(Collectors.toCollection(FXCollections::observableArrayList));
+                    return (ObservableList<Person>) filteredList;
             }
             case "Telefonnr": {
                 filteredList =
