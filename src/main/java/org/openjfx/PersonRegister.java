@@ -6,6 +6,7 @@ import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,39 +43,37 @@ public class PersonRegister {
     // Filter method
     public static ObservableList<Person> filter(String choiceBoxValue, String filterInput){
         //  Here the new, filtered lists are returned
+        List<Person> filteredList = new ArrayList<>();
+
         switch (choiceBoxValue) {
             case "Navn": {
-                List<Person> filteredList =
+                 filteredList =
                         list.parallelStream()
                                 .filter(p -> (p.getNavn().startsWith(filterInput)))
                                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-                list = FXCollections.observableArrayList(filteredList);
-                return list;
+                return (ObservableList<Person>) filteredList;
             }
             case "Alder": {
-                List<Person> filteredList =
+                 filteredList =
                         list.parallelStream()
                                 .filter(p -> ((p.getAlder()) == (Integer.parseInt(filterInput))))
                                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-                list = FXCollections.observableArrayList(filteredList);
-                return list;
+                return (ObservableList<Person>) filteredList;
 
             }
             case "Telefonnr": {
-                List<Person> filteredList =
+                filteredList =
                         list.parallelStream()
                                 .filter(p -> (p.getTlf().startsWith(filterInput)))
                                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-                list = FXCollections.observableArrayList(filteredList);
-                return list;
+                return (ObservableList<Person>) filteredList;
             }
             case "Epost": {
-                List<Person> filteredList =
+                 filteredList =
                         list.parallelStream()
                                 .filter(p -> (p.getEPost().startsWith(filterInput)))
                                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-                list = FXCollections.observableArrayList(filteredList);
-                return list;
+                return (ObservableList<Person>) filteredList;
             }
             default:
                 return list;

@@ -77,7 +77,7 @@ public class PrimaryController implements Initializable {
     private TextField txtFilter;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<Person> tableView;
 
     @FXML
     private TableColumn<Person, String> colNavn;
@@ -105,24 +105,13 @@ public class PrimaryController implements Initializable {
 
     @FXML
     void btnFiltrer(ActionEvent event){
-        System.out.println("TEST BUTTON");
-        /* HENRIK */
         String choiceBoxValue = (String) filterBox.getValue();
-        System.out.println(choiceBoxValue);
         String filterInput = txtFilter.getText();
-        System.out.println(filterInput);
-
 
         ObservableList<Person> newList =
                 PersonRegister.filter(choiceBoxValue,filterInput);
 
-        // Why won't this display the new tableview??
-        for (Person p : newList){
-            collection.addElement(p);
-            System.out.println(p);
-        }
-
-
+        tableView.setItems(newList);
 
     }
 

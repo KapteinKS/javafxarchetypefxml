@@ -1,2 +1,0 @@
-It seems we can't open a txt file after having opened a jobj file, and vice versa.
-A problem with the filter mechanic is that it actually overwrites the current datamodel
