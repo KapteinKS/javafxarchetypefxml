@@ -108,10 +108,14 @@ public class PrimaryController implements Initializable {
         String choiceBoxValue = (String) filterBox.getValue();
         String filterInput = txtFilter.getText();
 
-        ObservableList<Person> newList =
-                PersonRegister.filter(choiceBoxValue,filterInput);
+        if(!filterInput.isEmpty()) {
+            ObservableList<Person> newList =
+                    PersonRegister.filter(choiceBoxValue, filterInput);
 
-        tableView.setItems(newList);
+            tableView.setItems(newList);
+        } else {
+            tableView.setItems(collection.getList());
+        }
 
     }
 
