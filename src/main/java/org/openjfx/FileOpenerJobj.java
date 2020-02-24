@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileOpenerJobj implements FileOpener{
+    /*
+    leser inn fra .jobj fil, returnerer en ObservableArrayList
+     */
     public static ObservableList<Person> lesFil(Path path) {
         try {
             InputStream in = Files.newInputStream(path);

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileSaverJobj implements FileOpener {
+    /*
+    lagrer et arraylist med personer som en .jobj fil
+     */
     public static void srivTilFil(List<Person> dmList, Path path){
         try (OutputStream os = Files.newOutputStream(path);
              ObjectOutputStream out = new ObjectOutputStream(os)) {

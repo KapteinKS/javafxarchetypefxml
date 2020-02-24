@@ -95,6 +95,10 @@ public class PrimaryController implements Initializable {
     private TableColumn<Person, String> colMail;
 
     @Override
+    /*
+    Fester tableview til Personregisteret, setter lovlige filtyper
+    til .txt og .jobj, fester IntegerStringConverter til alder
+    */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         collection.attachTableView(tableView);
         colAlder.setCellFactory(TextFieldTableCell.forTableColumn(intStrConverter));
@@ -104,6 +108,12 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    /*
+    får tak i verdien i choiceBox(filterBox) og filterstrengen,
+    sjekker om et filter er skrevet inn, og filtrerer listen
+    etter navn, alder, telefon eller epost. hvis filterfeltet er
+    tomt resettes tableview til standard
+    */
     void btnFiltrer(ActionEvent event){
         String choiceBoxValue = (String) filterBox.getValue();
         String filterInput = txtFilter.getText();
@@ -120,6 +130,11 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    /*
+    "Lagre Som"-metode, åpner alltid filvindu hvor du kan opprette
+    ny fil eller overskrive en annen fil. Skiller mellom å lagre som .txt eller
+    .jobj
+     */
     void saveRegistryAs(ActionEvent event) throws IOException {
         fileChooser.setTitle("Save to which file?");
         selectedFile = fileChooser.showSaveDialog(mainStage);
@@ -140,6 +155,10 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    /*
+    Mye det samme som forrige metode, men hvis en fil allerede er valgt
+    lagres register til den valgte fila
+     */
     void saveRegistry(ActionEvent event) throws IOException {
         if(selectedFile == null) {
             fileChooser.setTitle("Save to which file?");
@@ -163,6 +182,10 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    /*
+    metode for å åpne fil, åpner filvindu for å velge fil
+    og laster inn register
+     */
     void chooseFile(ActionEvent event) throws IOException, ClassNotFoundException {
         fileChooser.setTitle("Velg en fil som inneholder register");
         selectedFile = fileChooser.showOpenDialog(mainStage);
@@ -192,6 +215,9 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
+    /*
+    Registrerer en Person til tableview og resetter tekstfelter
+     */
     void regPers(ActionEvent event) {
         if(!lblNavn.getText().isEmpty()) {
             Person obj = createDataModelObjectFromGUI();
@@ -203,6 +229,10 @@ public class PrimaryController implements Initializable {
         }
     }
 
+    /*
+    prøver å lage Person-objekt fra GUI, parser tallverdier og gir
+    passende feilmelding dersom noe er galt
+     */
     private Person createDataModelObjectFromGUI() {
         try {
             String navn = avvik.sjekkNavn(lblNavn.getText());
@@ -212,6 +242,7 @@ public class PrimaryController implements Initializable {
             int år = avvik.år(Integer.parseInt(lblYYYY.getText()));
             String tlf = avvik.sjekkTelefon(txtTelefon.getText());
             String ePost = avvik.sjekkEpost(txtEPost.getText());
+            avvik.antallDager(dag, måned, år);
             Dato fDato = new Dato(dag, måned, år);
             return new Person(navn, alder, fDato, tlf, ePost);
         } catch (InvalidNameException e) {
@@ -226,6 +257,7 @@ public class PrimaryController implements Initializable {
         return null;
     }
 
+    //resetter tekstfelter
     private void resetTxtFields() {
         lblAlder.setText("");
         lblNavn.setText("");
@@ -237,6 +269,7 @@ public class PrimaryController implements Initializable {
         warninglbl.setText("");
     }
 
+    //on-change metoder for å oppdatere Person-objekter fra tabellen
     public void nameDataEdited(TableColumn.CellEditEvent<Person, String> event) {
         event.getRowValue().setNavn(event.getNewValue());
     }

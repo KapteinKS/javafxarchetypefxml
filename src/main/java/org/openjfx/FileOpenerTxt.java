@@ -6,6 +6,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class FileOpenerTxt implements FileOpener {
+    /*
+    metode som leser inn register fra .txt fil, oppretter og returnerer
+    en arraylist med personobjekter
+     */
     public static ArrayList<Person> lesFil(Path path) throws IOException {
         ArrayList<Person> plist = new ArrayList<>();
         try(var reader = Files.newBufferedReader(path)){
@@ -20,6 +24,9 @@ public class FileOpenerTxt implements FileOpener {
         return plist;
     }
 
+    /*
+    oppretter personer fra hver linje av filen, så de kan lagres i plist
+     */
     public static Person parsePerson(String line) throws InvalidPersonFormatException {
 
         String[] strings = line.split(FileSaverTxt.DELIMITER);

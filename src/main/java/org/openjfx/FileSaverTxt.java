@@ -8,8 +8,11 @@ import java.util.List;
 public class FileSaverTxt implements FileSaver{
     public static String DELIMITER = ";";
 
+    /*
+    metode som lager en tekststreng av personobjekter, og til slutt lagrer
+    denne til fil
+     */
     public static void skrivTilFil(List<Person> dmList, Path path) throws IOException {
-
         StringBuffer str = new StringBuffer();
         for(Person dm : dmList) {
             str.append(formatPerson(dm));
@@ -22,6 +25,9 @@ public class FileSaverTxt implements FileSaver{
         Files.write(path, str.getBytes());
     }
 
+    /*
+    Metode som formaterer Person-objekter for lagring
+     */
     public static String formatPerson(Person dm) {
         String ut = dm.getNavn() + DELIMITER + dm.getAlder() + DELIMITER;
         Dato fDato = dm.getFDato();

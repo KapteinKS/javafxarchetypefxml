@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+//Serialiserbar Personklasse
 public class Person implements Serializable{
 
     private transient SimpleStringProperty navn;
@@ -16,6 +17,7 @@ public class Person implements Serializable{
     private transient SimpleStringProperty tlf;
     private transient SimpleStringProperty ePost;
 
+    //konstruktør
     public Person(String navn, int alder, Dato fDato, String tlf, String ePost) {
         if(alder < 0) {
             throw new IllegalArgumentException("intData cannot be negative");
@@ -28,6 +30,7 @@ public class Person implements Serializable{
         this.ePost = new SimpleStringProperty(ePost);
     }
 
+    //get/set metoder
     public String getNavn() {
         return navn.getValue();
     }
@@ -74,9 +77,13 @@ public class Person implements Serializable{
 
     @Override
     public String toString() {
-        return String.format("%s er %s år, født %s, epost: %s, Tlf: %s", navn, alder, fDato, ePost, tlf);
+        return String.format("%s er %s år, født %s, epost: %s, Tlf: %s", navn.getValue(), alder.getValue(), fDato.getValue(),
+                ePost.getValue(), tlf.getValue());
     }
 
+    /*
+    metode for å skrive til fil
+     */
     private void writeObject(ObjectOutputStream s) throws IOException {
         s.writeUTF(navn.getValue());
         s.writeInt(alder.getValue());
@@ -85,6 +92,9 @@ public class Person implements Serializable{
         s.writeUTF(ePost.getValue());
     }
 
+    /*
+    metode for å lese inn fra fil
+     */
     private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException{
         String name = s.readUTF();
         int age = s.readInt();

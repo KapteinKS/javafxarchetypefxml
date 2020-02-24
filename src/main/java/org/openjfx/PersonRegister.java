@@ -1,6 +1,5 @@
 package org.openjfx;
 
-// #anothershamelessripoff
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -18,20 +17,21 @@ public class PersonRegister {
         tv.setItems(list);
     }
 
+    //sjekker om et objekt allerede finnes i list, legger kun til nye objekter
     public void addElement(Person obj) {
         if(!erBrukt(obj)) {
             list.add(obj);
         }
     }
 
-    public void clearRegister(){
-        list.removeAll();
-    }
-
     public ObservableList<Person> getList(){
         return list;
     }
 
+    /*
+    sjekker om et objekt finnes med samme telefonnummer, for å unngå at
+    personer lagres flere ganger (ser på telefonnummer som primærnøkkel)
+     */
     public boolean erBrukt(Person obj){
         for(Person d : list){
             if(d.getTlf().equals(obj.getTlf())){
@@ -40,11 +40,10 @@ public class PersonRegister {
         }
         return false;
     }
-    // Filter method
+    // Filtermetode, returnerer en filtrert liste
     public static ObservableList<Person> filter(String choiceBoxValue, String filterInput){
-        //  Here the new, filtered lists are returned
-        List<Person> filteredList = new ArrayList<>();
 
+        List<Person> filteredList;
         switch (choiceBoxValue) {
             case "Navn": {
                  filteredList =
